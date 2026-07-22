@@ -821,7 +821,7 @@ local EmbeddedModules = {
 					itemChangedCon = game.ItemChanged:Connect(function(obj,prop)
 						if prop == "Parent" and nodes[obj] then
 							moveObject(obj)
-						elseif prop == "名称" and nodes[obj] then
+						elseif prop == "Name" and nodes[obj] then
 							nodes[obj].NameWidth = nil
 						end
 					end)
@@ -6230,7 +6230,7 @@ local EmbeddedModules = {
 						if not isEnd then
 							local newTemplate = template:Clone()
 							newTemplate.Position = UDim2.new(1,-side.Width,0,currentPos-4)
-							side.ResizeCons[#side.ResizeCons+1] = v.Gui.Main:GetPropertyChangedSignal("大小"):Connect(function()
+							side.ResizeCons[#side.ResizeCons+1] = v.Gui.Main:GetPropertyChangedSignal("Size"):Connect(function()
 								newTemplate.Position = UDim2.new(1,-side.Width,0, v.GuiElems.Main.Position.Y.Offset + v.GuiElems.Main.Size.Y.Offset)
 							end)
 							side.ResizeCons[#side.ResizeCons+1] = v.Gui.Main:GetPropertyChangedSignal("Position"):Connect(function()
@@ -10496,9 +10496,9 @@ local EmbeddedModules = {
 			ConsoleFrame["BackgroundTransparency"] = 1;
 			ConsoleFrame["BackgroundColor3"] = Color3.fromRGB(47, 47, 47);
 			ConsoleFrame["Selectable"] = false;
-			ConsoleFrame["大小"] = UDim2.new(1,0,1,0);
+			ConsoleFrame["Size"] = UDim2.new(1,0,1,0);
 			ConsoleFrame["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-			ConsoleFrame["名称"] = [[Console]];
+			ConsoleFrame["Name"] = [[Console]];
 			ConsoleFrame["Position"] = UDim2.new(0,0,0,0);
 
 
@@ -10509,10 +10509,10 @@ local EmbeddedModules = {
 			G2L["3"]["BackgroundColor3"] = Color3.fromRGB(37, 37, 37);
 			G2L["3"]["AnchorPoint"] = Vector2.new(0.5, 1);
 			G2L["3"]["ClipsDescendants"] = true;
-			G2L["3"]["大小"] = UDim2.new(1, -8, 0, 22);
+			G2L["3"]["Size"] = UDim2.new(1, -8, 0, 22);
 			G2L["3"]["Position"] = UDim2.new(0.5, 0, 1, -5);
 			G2L["3"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-			G2L["3"]["名称"] = [[CommandLine]];
+			G2L["3"]["Name"] = [[CommandLine]];
 
 
 			-- StarterGui.ScreenGui.Console.CommandLine.UIStroke
@@ -10533,7 +10533,7 @@ local EmbeddedModules = {
 			G2L["5"]["HorizontalScrollBarInset"] = Enum.ScrollBarInset.Always;
 			G2L["5"]["BottomImage"] = [[rbxasset://textures/ui/Scroll/scroll-middle.png]];
 			G2L["5"]["AutomaticCanvasSize"] = Enum.AutomaticSize.X;
-			G2L["5"]["大小"] = UDim2.new(1, 0, 1, 0);
+			G2L["5"]["Size"] = UDim2.new(1, 0, 1, 0);
 			G2L["5"]["ScrollBarImageColor3"] = Color3.fromRGB(57, 57, 57);
 			G2L["5"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 			G2L["5"]["ScrollBarThickness"] = 2;
@@ -10552,7 +10552,7 @@ local EmbeddedModules = {
 			G2L["6"]["AutomaticSize"] = Enum.AutomaticSize.X;
 			G2L["6"]["ClearTextOnFocus"] = false;
 			G2L["6"]["PlaceholderText"] = [[Run a command]];
-			G2L["6"]["大小"] = UDim2.new(0, 246, 0, 22);
+			G2L["6"]["Size"] = UDim2.new(0, 246, 0, 22);
 			G2L["6"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 			G2L["6"]["Text"] = [[]];
 			G2L["6"]["BackgroundTransparency"] = 1;
@@ -10575,12 +10575,12 @@ local EmbeddedModules = {
 			G2L["8"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 			G2L["8"]["BackgroundTransparency"] = 1;
 			G2L["8"]["RichText"] = true;
-			G2L["8"]["大小"] = UDim2.new(0, 246, 0, 22);
+			G2L["8"]["Size"] = UDim2.new(0, 246, 0, 22);
 			G2L["8"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 			G2L["8"]["Text"] = [[]];
 			G2L["8"]["Selectable"] = true;
 			G2L["8"]["AutomaticSize"] = Enum.AutomaticSize.X;
-			G2L["8"]["名称"] = [[Highlight]];
+			G2L["8"]["Name"] = [[Highlight]];
 
 
 			-- StarterGui.ScreenGui.Console.CommandLine.ScrollingFrame.Highlight.UIPadding
@@ -10590,9 +10590,9 @@ local EmbeddedModules = {
 			G2L["backgroundOutput"] = Instance.new("Frame", ConsoleFrame);
 			G2L["backgroundOutput"]["BorderSizePixel"] = 0;
 			G2L["backgroundOutput"]["BackgroundColor3"] = Color3.fromRGB(36, 36, 36);
-			G2L["backgroundOutput"]["名称"] = [[BackgroundOutput]];
+			G2L["backgroundOutput"]["Name"] = [[BackgroundOutput]];
 			G2L["backgroundOutput"]["AnchorPoint"] = Vector2.new(0, 0);
-			G2L["backgroundOutput"]["大小"] = UDim2.new(1, -8, 1, -55);
+			G2L["backgroundOutput"]["Size"] = UDim2.new(1, -8, 1, -55);
 			G2L["backgroundOutput"]["Position"] = UDim2.new(0, 4, 0, 23);
 			G2L["backgroundOutput"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 			G2L["backgroundOutput"]["ZIndex"] = 1;
@@ -10612,12 +10612,12 @@ local EmbeddedModules = {
 			G2L["a"]["TopImage"] = '';
 			G2L["a"]["BackgroundColor3"] = Color3.fromRGB(36, 36, 36);
 			G2L["a"].BackgroundTransparency = 1
-			G2L["a"]["名称"] = [[Output]];
+			G2L["a"]["Name"] = [[Output]];
 			G2L["a"]["ScrollBarImageTransparency"] = 0;
 			G2L["a"]["BottomImage"] = '';
 			G2L["a"]["AnchorPoint"] = Vector2.new(0, 0);
 			G2L["a"]["AutomaticCanvasSize"] = Enum.AutomaticSize.Y;
-			G2L["a"]["大小"] = UDim2.new(1, -8, 1, -55);
+			G2L["a"]["Size"] = UDim2.new(1, -8, 1, -55);
 			G2L["a"]["Position"] = UDim2.new(0, 4, 0, 23);
 			G2L["a"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 			G2L["a"].ScrollBarImageColor3 = Color3.fromRGB(70, 70, 70)
@@ -10646,14 +10646,14 @@ local EmbeddedModules = {
 
 			-- StarterGui.ScreenGui.Console.Output.OutputTextSize
 			G2L["d"] = Instance.new("NumberValue", G2L["a"]);
-			G2L["d"]["名称"] = [[OutputTextSize]];
-			G2L["d"]["数值"] = 15;
+			G2L["d"]["Name"] = [[OutputTextSize]];
+			G2L["d"]["Value"] = 15;
 
 
 			-- StarterGui.ScreenGui.Console.Output.OutputLimit
 			G2L["e"] = Instance.new("NumberValue", G2L["a"]);
-			G2L["e"]["名称"] = [[OutputLimit]];
-			G2L["e"]["数值"] = OutputLimit;
+			G2L["e"]["Name"] = [[OutputLimit]];
+			G2L["e"]["Value"] = OutputLimit;
 
 
 			-- StarterGui.ScreenGui.Console.Output.UIPadding
@@ -10666,10 +10666,10 @@ local EmbeddedModules = {
 			G2L["10"]["BorderSizePixel"] = 0;
 			G2L["10"]["BackgroundColor3"] = Color3.fromRGB(37, 37, 37);
 			G2L["10"]["ClipsDescendants"] = true;
-			G2L["10"]["大小"] = UDim2.new(0, 37, 0, 15);
+			G2L["10"]["Size"] = UDim2.new(0, 37, 0, 15);
 			G2L["10"]["Position"] = UDim2.new(0, 4, 0, 4);
 			G2L["10"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-			G2L["10"]["名称"] = [[TextSizeBox]];
+			G2L["10"]["Name"] = [[TextSizeBox]];
 
 
 			-- StarterGui.ScreenGui.Console.TextSizeBox.TextBox
@@ -10683,7 +10683,7 @@ local EmbeddedModules = {
 			G2L["11"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
 			G2L["11"]["FontFace"] = Font.new([[rbxasset://fonts/families/Inconsolata.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
 			G2L["11"]["PlaceholderText"] = [[Size]];
-			G2L["11"]["大小"] = UDim2.new(1, 0, 1, 0);
+			G2L["11"]["Size"] = UDim2.new(1, 0, 1, 0);
 			G2L["11"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 			G2L["11"]["Text"] = [[]];
 			G2L["11"]["BackgroundTransparency"] = 1;
@@ -10707,9 +10707,9 @@ local EmbeddedModules = {
 			G2L["14"] = Instance.new("ImageButton", ConsoleFrame);
 			G2L["14"]["BorderSizePixel"] = 0;
 			G2L["14"]["BackgroundColor3"] = Color3.fromRGB(57, 57, 57);
-			G2L["14"]["大小"] = UDim2.new(0, 37, 0, 15);
+			G2L["14"]["Size"] = UDim2.new(0, 37, 0, 15);
 			G2L["14"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-			G2L["14"]["名称"] = [[Clear]];
+			G2L["14"]["Name"] = [[Clear]];
 			G2L["14"]["Position"] = UDim2.new(1, -42, 0, 4);
 
 
@@ -10724,7 +10724,7 @@ local EmbeddedModules = {
 			G2L["15"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
 			G2L["15"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 			G2L["15"]["BackgroundTransparency"] = 1;
-			G2L["15"]["大小"] = UDim2.new(1, 0, 1, 0);
+			G2L["15"]["Size"] = UDim2.new(1, 0, 1, 0);
 			G2L["15"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 			G2L["15"]["Text"] = [[Clear]];
 
@@ -10739,7 +10739,7 @@ local EmbeddedModules = {
 			G2L["17"] = Instance.new("TextBox", ConsoleFrame);
 			G2L["17"]["Visible"] = false;
 			G2L["17"]["Active"] = false;
-			G2L["17"]["名称"] = [[OutputTemplate]];
+			G2L["17"]["Name"] = [[OutputTemplate]];
 			G2L["17"]["TextXAlignment"] = Enum.TextXAlignment.Left;
 			G2L["17"]["BorderSizePixel"] = 0;
 			G2L["17"]["TextEditable"] = false;
@@ -10752,7 +10752,7 @@ local EmbeddedModules = {
 			G2L["17"]["AutomaticSize"] = Enum.AutomaticSize.Y;
 			G2L["17"]["Selectable"] = false;
 			G2L["17"]["ClearTextOnFocus"] = false;
-			G2L["17"]["大小"] = UDim2.new(1, 0, 0, 1);
+			G2L["17"]["Size"] = UDim2.new(1, 0, 0, 1);
 			G2L["17"]["Position"] = UDim2.new(0, 20, 0, 0);
 			G2L["17"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 			G2L["17"]["Text"] = [[(timestamp) <font color="rgb(255, 255, 255)">Output</font>]];
@@ -10769,9 +10769,9 @@ local EmbeddedModules = {
 			G2L["19"] = Instance.new("ImageButton", ConsoleFrame);
 			G2L["19"]["BorderSizePixel"] = 0;
 			G2L["19"]["BackgroundColor3"] = Color3.fromRGB(57, 57, 57);
-			G2L["19"]["大小"] = UDim2.new(0, 60, 0, 15);
+			G2L["19"]["Size"] = UDim2.new(0, 60, 0, 15);
 			G2L["19"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-			G2L["19"]["名称"] = [[CtrlScroll]];
+			G2L["19"]["Name"] = [[CtrlScroll]];
 			G2L["19"]["Position"] = UDim2.new(0, 46, 0, 4);
 
 
@@ -10786,7 +10786,7 @@ local EmbeddedModules = {
 			G2L["1a"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
 			G2L["1a"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 			G2L["1a"]["BackgroundTransparency"] = 1;
-			G2L["1a"]["大小"] = UDim2.new(1, 0, 1, 0);
+			G2L["1a"]["Size"] = UDim2.new(1, 0, 1, 0);
 			G2L["1a"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 			G2L["1a"]["Text"] = [[Ctrl Scroll]];
 
@@ -10800,9 +10800,9 @@ local EmbeddedModules = {
 			G2L["20"] = Instance.new("ImageButton", ConsoleFrame);
 			G2L["20"]["BorderSizePixel"] = 0;
 			G2L["20"]["BackgroundColor3"] = Color3.fromRGB(57, 57, 57);
-			G2L["20"]["大小"] = UDim2.new(0, 60, 0, 15);
+			G2L["20"]["Size"] = UDim2.new(0, 60, 0, 15);
 			G2L["20"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-			G2L["20"]["名称"] = [[AutoScroll]];
+			G2L["20"]["Name"] = [[AutoScroll]];
 			G2L["20"]["Position"] = UDim2.new(0, 110, 0, 4);
 
 
@@ -10817,7 +10817,7 @@ local EmbeddedModules = {
 			G2L["1e"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
 			G2L["1e"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 			G2L["1e"]["BackgroundTransparency"] = 1;
-			G2L["1e"]["大小"] = UDim2.new(1, 0, 1, 0);
+			G2L["1e"]["Size"] = UDim2.new(1, 0, 1, 0);
 			G2L["1e"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 			G2L["1e"]["Text"] = [[Auto Scroll]];
 
@@ -10830,12 +10830,12 @@ local EmbeddedModules = {
 
 			-- StarterGui.ScreenGui.ConsoleHandler
 			G2L["1c"] = Instance.new("LocalScript", G2L["1"]);
-			G2L["1c"]["名称"] = [[ConsoleHandler]];
+			G2L["1c"]["Name"] = [[ConsoleHandler]];
 
 
 			-- StarterGui.ScreenGui.ConsoleHandler.SyntaxHighlighter
 			G2L["1d"] = Instance.new("ModuleScript", G2L["1c"]);
-			G2L["1d"]["名称"] = [[SyntaxHighlighter]];
+			G2L["1d"]["Name"] = [[SyntaxHighlighter]];
 
 
 			-- Require G2L wrapper
@@ -11121,7 +11121,7 @@ local EmbeddedModules = {
 						OutputTextSize.Value = tonum
 					end
 				end)
-				OutputTextSize:GetPropertyChangedSignal("数值"):Connect(function()
+				OutputTextSize:GetPropertyChangedSignal("Value"):Connect(function()
 					Console.TextSizeBox.TextBox.Text = tostring(OutputTextSize.Value)
 				end)
 
@@ -11186,7 +11186,7 @@ local EmbeddedModules = {
 					end
 
 					newOutputText.TextSize = OutputTextSize.Value
-					OutputTextSize:GetPropertyChangedSignal("数值"):Connect(function()
+					OutputTextSize:GetPropertyChangedSignal("Value"):Connect(function()
 						newOutputText.TextSize = OutputTextSize.Value
 					end)
 
@@ -11674,7 +11674,7 @@ end
 Main = (function()
 	local Main = {}
 
-	Main.ModuleList = {"资源管理器", "属性面板", "ScriptViewer", "控制台", "SaveInstance"}
+	Main.ModuleList = {"Explorer", "Properties", "ScriptViewer", "Console", "SaveInstance"}
 	Main.Elevated = false
 	Main.MissingEnv = {}
 	Main.Version = "" -- Beta 1.0.0
@@ -12090,7 +12090,7 @@ Main = (function()
 		for _,class in pairs(classList) do
 			local className = ""
 			for _,child in pairs(class.children) do
-				if child.tag == "属性面板" then
+				if child.tag == "Properties" then
 					local data = {Properties = {}, Functions = {}}
 					local props = child.children
 					for _,prop in pairs(props) do
@@ -12105,7 +12105,7 @@ Main = (function()
 					for _,member in pairs(members) do
 						if member.attrs.class == "ReflectionMetadataMember" then
 							local data = {}
-							if member.children[1].tag == "属性面板" then
+							if member.children[1].tag == "Properties" then
 								local props = member.children[1].children
 								for _,prop in pairs(props) do
 									if prop.attrs then
@@ -12128,7 +12128,7 @@ Main = (function()
 					for _,member in pairs(members) do
 						if member.attrs.class == "ReflectionMetadataMember" then
 							local data = {}
-							if member.children[1].tag == "属性面板" then
+							if member.children[1].tag == "Properties" then
 								local props = member.children[1].children
 								for _,prop in pairs(props) do
 									if prop.attrs then
@@ -12148,7 +12148,7 @@ Main = (function()
 		for _,enum in pairs(enumList) do
 			local enumName = ""
 			for _,child in pairs(enum.children) do
-				if child.tag == "属性面板" then
+				if child.tag == "Properties" then
 					local data = {Items = {}}
 					local props = child.children
 					for _,prop in pairs(props) do
@@ -12199,7 +12199,7 @@ Main = (function()
 			{8,"Frame",{BackgroundColor3=Color3.new(0.20392157137394,0.20392157137394,0.20392157137394),BorderSizePixel=0,Name="ProgressBar",Parent={3},Position=UDim2.new(0,110,0,145),Size=UDim2.new(0,0,0,4),}},
 			{9,"Frame",{BackgroundColor3=Color3.new(0.2392156869173,0.56078433990479,0.86274510622025),BorderSizePixel=0,Name="Bar",Parent={8},Size=UDim2.new(0,0,1,0),}},
 			{10,"ImageLabel",{BackgroundColor3=Color3.new(1,1,1),BackgroundTransparency=1,Image="rbxassetid://2764171053",ImageColor3=Color3.new(0.17647059261799,0.17647059261799,0.17647059261799),Parent={8},ScaleType=1,Size=UDim2.new(1,0,1,0),SliceCenter=Rect.new(2,2,254,254),}},
-			{11,"TextLabel",{BackgroundColor3=Color3.new(1,1,1),BackgroundTransparency=1,Font=3,Name="Creator",Parent={2},Position=UDim2.new(1,-110,1,-20),Size=UDim2.new(0,105,0,20),Text="由 Moon 开发",TextColor3=Color3.new(1,1,1),TextSize=14,TextXAlignment=1,}},
+			{11,"TextLabel",{BackgroundColor3=Color3.new(1,1,1),BackgroundTransparency=1,Font=3,Name="Creator",Parent={2},Position=UDim2.new(1,-110,1,-20),Size=UDim2.new(0,105,0,20),Text="由 Moon 开发 | 由 辞盏月 汉化",TextColor3=Color3.new(1,1,1),TextSize=14,TextXAlignment=1,}},
 			{12,"UIGradient",{Parent={11},Transparency=NumberSequence.new({NumberSequenceKeypoint.new(0,1,0),NumberSequenceKeypoint.new(1,1,0),}),}},
 			{13,"TextLabel",{BackgroundColor3=Color3.new(1,1,1),BackgroundTransparency=1,Font=3,Name="Version",Parent={2},Position=UDim2.new(1,-110,1,-35),Size=UDim2.new(0,105,0,20),Text=Main.Version,TextColor3=Color3.new(1,1,1),TextSize=14,TextXAlignment=1,}},
 			{14,"UIGradient",{Parent={13},Transparency=NumberSequence.new({NumberSequenceKeypoint.new(0,1,0),NumberSequenceKeypoint.new(1,1,0),}),}},
@@ -12505,9 +12505,9 @@ Main = (function()
 		end)
 
 		-- Create Main Apps
-		Main.CreateApp({Name = "资源管理器", IconMap = Main.LargeIcons, Icon = "资源管理器", Open = true, Window = Explorer.Window})
+		Main.CreateApp({Name = "资源管理器", IconMap = Main.LargeIcons, Icon = "Explorer", Open = true, Window = Explorer.Window})
 
-		Main.CreateApp({Name = "属性面板", IconMap = Main.LargeIcons, Icon = "属性面板", Open = true, Window = Properties.Window})
+		Main.CreateApp({Name = "属性面板", IconMap = Main.LargeIcons, Icon = "Properties", Open = true, Window = Properties.Window})
 
 		Main.CreateApp({Name = "脚本查看器", IconMap = Main.LargeIcons, Icon = "Script_Viewer", Window = ScriptViewer.Window})
 
@@ -12567,23 +12567,23 @@ Main = (function()
 
 		Main.MiscIcons:SetDict({
 			["Reference"] = 0;
-			["剪切"] = 1;
+			["Cut"] = 1;
 			["Cut_Disabled"] = 2;
-			["复制"] = 3;
+			["Copy"] = 3;
 			["Copy_Disabled"] = 4;
 			["Paste"] = 5;
 			["Paste_Disabled"] = 6;
-			["删除"] = 7;
+			["Delete"] = 7;
 			["Delete_Disabled"] = 8;
-			["组合"] = 9;
+			["Group"] = 9;
 			["Group_Disabled"] = 10;
-			["取消组合"] = 11;
+			["Ungroup"] = 11;
 			["Ungroup_Disabled"] = 12;
 			["TeleportTo"] = 13;
-			["重命名"] = 14;
+			["Rename"] = 14;
 			["JumpToParent"] = 15;
 			["ExploreData"] = 16;
-			["保存"] = 17;
+			["Save"] = 17;
 			["CallFunction"] = 18;
 			["CallRemote"] = 19;
 			["Undo"] = 20,
@@ -12649,8 +12649,11 @@ Main = (function()
 		-- Load other modules
 		intro.SetProgress("正在加载模块",0.75)
 		Main.AppControls.Lib.InitDeps(Main.GetInitDeps()) -- Missing deps now available
+		intro.SetProgress("正在加载模块(1/3)",0.75)
 		Main.LoadModules()
+		intro.SetProgress("正在加载模块(2/3)",0.75)
 		Lib.FastWait()
+		intro.SetProgress("正在加载模块(3/3)",0.75)
 
 		-- Init other modules
 		intro.SetProgress("正在初始化模块",0.9)
