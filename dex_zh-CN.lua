@@ -2265,9 +2265,7 @@ local EmbeddedModules = {
 
 				Explorer.SetupConnections()
 
-                showNotification("Explorer", "开始获取所有实例...", "rbxthumb://type=Asset&id=5107182114&w=150&h=150")
                 local insts = getDescendants(game)
-                showNotification("Explorer", ("共获取 %d 个实例"):format(#insts), "rbxthumb://type=Asset&id=5107182114&w=150&h=150")
                 
 				if Main.Elevated then
 					for i = 1,#insts do
@@ -2295,7 +2293,6 @@ local EmbeddedModules = {
 						par[#par+1] = newNode
 					end
 				end
-				showNotification("Explorer", "节点填充完成", "rbxthumb://type=Asset&id=5107182114&w=150&h=150")
 			end
 
 			return Explorer
@@ -11187,7 +11184,7 @@ local EmbeddedModules = {
 				end)
 
 
-				Console.Clear.MouseButton1Click:Connect(function()
+				Console["清空"].MouseButton1Click:Connect(function()
 					for _, log in pairs(Console.Output:GetChildren()) do
 						if log:IsA("TextBox") then
 							log:Destroy()
@@ -11755,10 +11752,9 @@ Main = (function()
 	end
 
 	Main.Error = function(str)
-        showNotification("Dex 错误", tostring(str), "rbxthumb://type=Asset&id=5107182114&w=150&h=150")
         if rconsoleprint then
             rconsoleprint("DEX ERROR: "..tostring(str).."\n")
-            -- wait(9e9)
+            wait(9e9)
         else
             error(str)
         end
@@ -11817,15 +11813,11 @@ Main = (function()
             SaveInstance = "保存实例",
         }
     
-        showNotification("Dex 加载", "开始加载模块...", "rbxthumb://type=Asset&id=5107182114&w=150&h=150")
         for i, v in ipairs(Main.ModuleList) do
-            showNotification("Dex 加载", ("正在加载: %s (%d/%d)"):format(displayNames[v] or v, i, #Main.ModuleList), "rbxthumb://type=Asset&id=5107182114&w=150&h=150")
             local s, e = pcall(Main.LoadModule, v)
             if not s then
-                showNotification("Dex 加载错误", ("%s 加载失败: %s"):format(displayNames[v] or v, tostring(e)), "rbxthumb://type=Asset&id=5107182114&w=150&h=150")
                 Main.Error(("FAILED LOADING %s CAUSE %s"):format(v, e))
             else
-                showNotification("Dex 加载", ("%s 加载成功"):format(displayNames[v] or v), "rbxthumb://type=Asset&id=5107182114&w=150&h=150")
             end
         end
         
@@ -11850,11 +11842,9 @@ Main = (function()
             if control then
                 local success, err = pcall(control.InitAfterMain, appTable)
                 if not success then
-                    showNotification("InitAfterMain 错误", ("模块 %s 的 InitAfterMain 失败: %s"):format(v, tostring(err)), "rbxthumb://type=Asset&id=5107182114&w=150&h=150")
                 end
             end
         end
-        showNotification("Dex 加载", "所有模块加载完成！", "rbxthumb://type=Asset&id=5107182114&w=150&h=150")
     end
 
 	Main.InitEnv = function()
@@ -12613,7 +12603,7 @@ Main = (function()
 	end
 
 	Main.Init = function()
-	    showNotification("Dex", "正在启动...", "rbxthumb://type=Asset&id=5107182114&w=150&h=150")
+	    showNotification("Dex - 汉化版", "正在启动...", "rbxthumb://type=Asset&id=5107182114&w=150&h=150")
 		Main.Elevated = pcall(function() local a = service.CoreGui:GetFullName() end)
 		Main.InitEnv()
 		Main.LoadSettings()
@@ -12712,28 +12702,19 @@ Main = (function()
 		end
 
 		-- Load other modules
-		intro.SetProgress("加载模块(0/3)",0.75)
+		intro.SetProgress("加载模块",0.75)
 		Main.AppControls.Lib.InitDeps(Main.GetInitDeps()) -- Missing deps now available
-		intro.SetProgress("加载模块(1/3)",0.9)
 		Main.LoadModules()
-		intro.SetProgress("加载模块(2/3)",0.9)
 		Lib.FastWait()
-		intro.SetProgress("加载模块(3/3)",0.9)
 
 		-- Init other modules
-		intro.SetProgress("初始化模块(0/6)",0.9)
+		intro.SetProgress("初始化模块",0.9)
 		Explorer.Init()
-		intro.SetProgress("初始化模块(1/6)",0.9)
 		Properties.Init()
-		intro.SetProgress("初始化模块(2/6)",0.9)
 		ScriptViewer.Init()
-		intro.SetProgress("初始化模块(3/6)",0.9)
 		Console.Init()
-		intro.SetProgress("初始化模块(4/6)",0.9)
 		SaveInstance.Init()
-		intro.SetProgress("初始化模块(5/6)",0.9)
 		Lib.FastWait()
-		intro.SetProgress("初始化模块(6/6)",0.9)
 
 		-- Done
 		intro.SetProgress("完成",1)
