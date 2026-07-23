@@ -9,6 +9,19 @@
 ]]
 
 local nodes = {}
+local function showNotification(title, text, icon)
+    local StarterGui = game:GetService("StarterGui")
+    if StarterGui then
+        pcall(function()
+            StarterGui:SetCore("SendNotification", {
+                Title = title or "Dex 日志",
+                Text = text or "",
+                Icon = icon or "",
+                Duration = 3
+            })
+        end)
+    end
+end
 local selection
 
 local function missing(t, f, fallback)
@@ -59,11 +72,12 @@ local EmbeddedModules = {
 		end
 
 		local function initAfterMain()
-			Explorer = Apps.Explorer
-			Properties = Apps.Properties
-			ScriptViewer = Apps.ScriptViewer
-			Notebook = Apps.Notebook
-		end
+            Explorer = Apps.Explorer
+            Properties = Apps.Properties
+            ScriptViewer = Apps.ScriptViewer
+            Notebook = Apps.Notebook
+            Explorer.Selection.Changed:Connect(Properties.ShowExplorerProps)
+        end
 
 		local function main()
 			local Explorer = {}
@@ -2147,7 +2161,6 @@ local EmbeddedModules = {
 
 				selection = Lib.Set.new()
 				selection.ShiftSet = {}
-				selection.Changed:Connect(Properties.ShowExplorerProps)
 				Explorer.Selection = selection
 
 				Explorer.InitRightClick()
@@ -2252,7 +2265,10 @@ local EmbeddedModules = {
 
 				Explorer.SetupConnections()
 
-				local insts = getDescendants(game)
+                showNotification("Explorer", "开始获取所有实例...", "rbxthumb://type=Asset&id=5107182114&w=150&h=150")
+                local insts = getDescendants(game)
+                showNotification("Explorer", ("共获取 %d 个实例"):format(#insts), "rbxthumb://type=Asset&id=5107182114&w=150&h=150")
+                
 				if Main.Elevated then
 					for i = 1,#insts do
 						local obj = insts[i]
@@ -2279,6 +2295,7 @@ local EmbeddedModules = {
 						par[#par+1] = newNode
 					end
 				end
+				showNotification("Explorer", "节点填充完成", "rbxthumb://type=Asset&id=5107182114&w=150&h=150")
 			end
 
 			return Explorer
@@ -11293,7 +11310,14 @@ local EmbeddedModules = {
 		local function main()
 			local SaveInstance = {}
 			local window, ListFrame
-			local fileName = "Place_"..game.PlaceId.."_"..service.MarketplaceService:GetProductInfo(game.PlaceId).Name.."_{TIMESTAMP}"
+            local placeName = "Unknown"
+            local success, info = pcall(function()
+                return service.MarketplaceService:GetProductInfo(game.PlaceId)
+            end)
+            if success and info and info.Name then
+                placeName = info.Name
+            end
+            local fileName = "Place_"..game.PlaceId.."_"..placeName.."_{TIMESTAMP}"
 			local Saving = false
 
 			local SaveInstanceArgs = {
@@ -11697,7 +11721,7 @@ end
 Main = (function()
 	local Main = {}
 
-	Main.ModuleList = {"资源管理器", "属性", "脚本查看器", "控制台", "保存实例"}
+    Main.ModuleList = {"Explorer", "Properties", "ScriptViewer", "Console", "SaveInstance"}
 	Main.Elevated = false
 	Main.MissingEnv = {}
 	Main.Version = "" -- Beta 1.0.0
@@ -11731,13 +11755,14 @@ Main = (function()
 	end
 
 	Main.Error = function(str)
-		if rconsoleprint then
-			rconsoleprint("DEX ERROR: "..tostring(str).."\n")
-			wait(9e9)
-		else
-			error(str)
-		end
-	end
+        showNotification("Dex 错误", tostring(str), "rbxthumb://type=Asset&id=5107182114&w=150&h=150")
+        if rconsoleprint then
+            rconsoleprint("DEX ERROR: "..tostring(str).."\n")
+            wait(9e9)
+        else
+            error(str)
+        end
+    end
 
 	Main.LoadModule = function(name)
 		--[[if Main.Elevated then -- If you don't have filesystem api then ur outta luck tbh
@@ -11783,38 +11808,54 @@ Main = (function()
 		return moduleData
 	end
 
-	Main.LoadModules = function()
-		for i,v in pairs(Main.ModuleList) do
-			local s,e = pcall(Main.LoadModule,v)
-			if not s then
-				Main.Error(("FAILED LOADING %s CAUSE %s"):format(v, e))
-			end
-		end
-
-		-- Init Major Apps and define them in modules
-		Explorer = Apps.Explorer
-		Properties = Apps.Properties
-		ScriptViewer = Apps.ScriptViewer
-		Console = Apps.Console
-		SaveInstance = Apps.SaveInstance
-		Notebook = Apps.Notebook
-		local appTable = {
-			Explorer = Explorer,
-			Properties = Properties,
-			ScriptViewer = ScriptViewer,
-			Console = Console,
-			SaveInstance = SaveInstance,
-			Notebook = Notebook
-		}
-
-		Main.AppControls.Lib.InitAfterMain(appTable)
-		for i,v in pairs(Main.ModuleList) do
-			local control = Main.AppControls[v]
-			if control then
-				control.InitAfterMain(appTable)
-			end
-		end
-	end
+    Main.LoadModules = function()
+        local displayNames = {
+            Explorer = "资源管理器",
+            Properties = "属性",
+            ScriptViewer = "脚本查看器",
+            Console = "控制台",
+            SaveInstance = "保存实例",
+        }
+    
+        showNotification("Dex 加载", "开始加载模块...", "rbxthumb://type=Asset&id=5107182114&w=150&h=150")
+        for i, v in ipairs(Main.ModuleList) do
+            showNotification("Dex 加载", ("正在加载: %s (%d/%d)"):format(displayNames[v] or v, i, #Main.ModuleList), "rbxthumb://type=Asset&id=5107182114&w=150&h=150")
+            local s, e = pcall(Main.LoadModule, v)
+            if not s then
+                showNotification("Dex 加载错误", ("%s 加载失败: %s"):format(displayNames[v] or v, tostring(e)), "rbxthumb://type=Asset&id=5107182114&w=150&h=150")
+                Main.Error(("FAILED LOADING %s CAUSE %s"):format(v, e))
+            else
+                showNotification("Dex 加载", ("%s 加载成功"):format(displayNames[v] or v), "rbxthumb://type=Asset&id=5107182114&w=150&h=150")
+            end
+        end
+        
+        Explorer = Apps.Explorer
+        Properties = Apps.Properties
+        ScriptViewer = Apps.ScriptViewer
+        Console = Apps.Console
+        SaveInstance = Apps.SaveInstance
+        Notebook = Apps.Notebook
+        local appTable = {
+            Explorer = Explorer,
+            Properties = Properties,
+            ScriptViewer = ScriptViewer,
+            Console = Console,
+            SaveInstance = SaveInstance,
+            Notebook = Notebook
+        }
+    
+        Main.AppControls.Lib.InitAfterMain(appTable)
+        for i, v in pairs(Main.ModuleList) do
+            local control = Main.AppControls[v]
+            if control then
+                local success, err = pcall(control.InitAfterMain, appTable)
+                if not success then
+                    showNotification("InitAfterMain 错误", ("模块 %s 的 InitAfterMain 失败: %s"):format(v, tostring(err)), "rbxthumb://type=Asset&id=5107182114&w=150&h=150")
+                end
+            end
+        end
+        showNotification("Dex 加载", "所有模块加载完成！", "rbxthumb://type=Asset&id=5107182114&w=150&h=150")
+    end
 
 	Main.InitEnv = function()
 		setmetatable(env, {__newindex = function(self, name, func)
@@ -12572,6 +12613,7 @@ Main = (function()
 	end
 
 	Main.Init = function()
+	    showNotification("Dex", "正在启动...", "rbxthumb://type=Asset&id=5107182114&w=150&h=150")
 		Main.Elevated = pcall(function() local a = service.CoreGui:GetFullName() end)
 		Main.InitEnv()
 		Main.LoadSettings()
@@ -12670,10 +12712,13 @@ Main = (function()
 		end
 
 		-- Load other modules
-		intro.SetProgress("加载模块",0.75)
+		intro.SetProgress("加载模块(0/3)",0.75)
 		Main.AppControls.Lib.InitDeps(Main.GetInitDeps()) -- Missing deps now available
+		intro.SetProgress("初始化模块(1/3)",0.9)
 		Main.LoadModules()
+		intro.SetProgress("初始化模块(2/3)",0.9)
 		Lib.FastWait()
+		intro.SetProgress("初始化模块(3/3)",0.9)
 
 		-- Init other modules
 		intro.SetProgress("初始化模块",0.9)
