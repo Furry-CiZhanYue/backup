@@ -4,6 +4,7 @@
 	Dex
 	Created by Moon
 	Modified for Infinite Yield
+    由 辞盏月 汉化
 
 	Dex is a debugging suite designed to help the user debug games and find any potential vulnerabilities.
 ]]
