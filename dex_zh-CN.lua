@@ -4,7 +4,6 @@
 	Dex
 	Created by Moon
 	Modified for Infinite Yield
-    由 辞盏月 汉化
 
 	Dex is a debugging suite designed to help the user debug games and find any potential vulnerabilities.
 ]]
@@ -77,7 +76,6 @@ local EmbeddedModules = {
             Properties = Apps.Properties
             ScriptViewer = Apps.ScriptViewer
             Notebook = Apps.Notebook
-            Explorer.Selection.Changed:Connect(Properties.ShowExplorerProps)
         end
 
 		local function main()
@@ -2162,6 +2160,7 @@ local EmbeddedModules = {
 
 				selection = Lib.Set.new()
 				selection.ShiftSet = {}
+				selection.Changed:Connect(Properties.ShowExplorerProps)
 				Explorer.Selection = selection
 
 				Explorer.InitRightClick()
@@ -12715,20 +12714,26 @@ Main = (function()
 		-- Load other modules
 		intro.SetProgress("加载模块(0/3)",0.75)
 		Main.AppControls.Lib.InitDeps(Main.GetInitDeps()) -- Missing deps now available
-		intro.SetProgress("初始化模块(1/3)",0.9)
+		intro.SetProgress("加载模块(1/3)",0.9)
 		Main.LoadModules()
-		intro.SetProgress("初始化模块(2/3)",0.9)
+		intro.SetProgress("加载模块(2/3)",0.9)
 		Lib.FastWait()
-		intro.SetProgress("初始化模块(3/3)",0.9)
+		intro.SetProgress("加载模块(3/3)",0.9)
 
 		-- Init other modules
-		intro.SetProgress("初始化模块",0.9)
+		intro.SetProgress("初始化模块(0/6)",0.9)
 		Explorer.Init()
+		intro.SetProgress("初始化模块(1/6)",0.9)
 		Properties.Init()
+		intro.SetProgress("初始化模块(2/6)",0.9)
 		ScriptViewer.Init()
+		intro.SetProgress("初始化模块(3/6)",0.9)
 		Console.Init()
+		intro.SetProgress("初始化模块(4/6)",0.9)
 		SaveInstance.Init()
+		intro.SetProgress("初始化模块(5/6)",0.9)
 		Lib.FastWait()
+		intro.SetProgress("初始化模块(6/6)",0.9)
 
 		-- Done
 		intro.SetProgress("完成",1)
