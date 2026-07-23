@@ -11758,7 +11758,7 @@ Main = (function()
         showNotification("Dex 错误", tostring(str), "rbxthumb://type=Asset&id=5107182114&w=150&h=150")
         if rconsoleprint then
             rconsoleprint("DEX ERROR: "..tostring(str).."\n")
-            wait(9e9)
+            -- wait(9e9)
         else
             error(str)
         end
